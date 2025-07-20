@@ -1,0 +1,51 @@
+{% extends './_base.html' %}
+
+{% block title %}File New Report{% endblock %}
+
+{% block content %}
+<div class="container mx-auto p-8 bg-white shadow-md rounded-lg">
+    <h2 class="text-2xl font-semibold mb-6 text-gray-800">File a New Report</h2>
+    <form method="post" class="space-y-4">
+        {% csrf_token %}
+        <div>
+            <label for="crime_type" class="block text-gray-700 text-sm font-bold mb-2">Type of Crime:</label>
+            <div class="relative">
+                <select id="crime_type" name="crime_type"
+                    class="block appearance-none w-full bg-white border border-gray-300 hover:border-gray-400 px-4 py-2 pr-8 rounded leading-tight focus:outline-none focus:shadow-outline">
+                    <option value="">-- Select a Crime Type --</option>
+                    {% for category in crime_categories %}
+                    <option value="{{ category.id }}">{{ category.name }}</option>
+                    {% endfor %}
+                </select>
+                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                        <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                    </svg>
+                </div>
+            </div>
+        </div>
+        <div>
+            <label for="location" class="block text-gray-700 text-sm font-bold mb-2">Location:</label>
+            <input type="text" id="location" name="location"
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                required>
+        </div>
+        <div>
+            <label for="crime_time" class="block text-gray-700 text-sm font-bold mb-2">Time of Crime:</label>
+            <input type="datetime-local" id="crime_time" name="crime_time"
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                required>
+        </div>
+        <div>
+            <label for="description" class="block text-gray-700 text-sm font-bold mb-2">Description:</label>
+            <textarea id="description" name="description" rows="5"
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                required></textarea>
+        </div>
+        <button type="submit"
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded focus:outline-none focus:shadow-outline">
+            Submit Report
+        </button>
+    </form>
+</div>
+{% endblock %}

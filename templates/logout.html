@@ -1,0 +1,32 @@
+{% extends './_base.html' %}
+{% load static %}
+
+{% block title %}Logout{% endblock %}
+
+{% block content %}
+<div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md mx-auto mt-16">
+    <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">Logout</h2>
+
+    {% if user.is_authenticated %}
+    <p class="mb-4 text-gray-700 text-center">
+        Are you sure you want to logout, <span class="font-semibold">{{ user.username }}</span>?
+    </p>
+    <form method="post" action="{% url 'logout' %}" class="flex justify-center">
+        {% csrf_token %}
+        <button type="submit"
+            class="bg-red-500 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-md focus:outline-none focus:shadow-outline transition duration-150 ease-in-out">
+            Logout
+        </button>
+    </form>
+    {% else %}
+    <p class="mb-4 text-gray-700 text-center">
+        You are already logged out.
+    </p>
+    <p class="text-center">
+        <a href="{% url 'login' %}" class="text-blue-600 hover:text-blue-800 font-medium">
+            Login again
+        </a>
+    </p>
+    {% endif %}
+</div>
+{% endblock %}
